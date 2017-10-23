@@ -1,6 +1,6 @@
 {
   "name": "mongoose-bignumber",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "Mongoose type for storing arbitrary-precision decimal numbers (using bignumber.js)",
   "main": "index.js",
   "license": "MIT",
