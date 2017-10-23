@@ -77,14 +77,14 @@ await model.save() // {_id: ..., bignumber: '23.46'}
 assert(model.bignumber instanceof BigNumber)
 
 // and we can use it as a regular BigNumber
-model.toJSON()  // {_id: ..., bignumber: '23.46'}
-model.bignumber = model.bignumber.add('1.10')
-model.toJSON()  // {_id: ..., bignumber: '24.56'}
+// {_id: ..., bignumber: '23.46'}
+model.bignumber = model.bignumber.add('11.11')
+// {_id: ..., bignumber: '34.57'}
 
 // BigNumber instances are immutable, this won't change the model!
-model.toJSON()  // {_id: ..., bignumber: '24.56'}
-model.bignumber.add('10.00')
-model.toJSON()  // {_id: ..., bignumber: '24.56'}
+// {_id: ..., bignumber: '34.57'}
+model.bignumber.add('11.11')
+// {_id: ..., bignumber: '34.57'}
 ```
 
 ## Contributing

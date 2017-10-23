@@ -50,18 +50,14 @@ class BigNumberSchema extends SchemaType {
 
   min(value, message) {
     if (this.minValidator) {
-      this.validators = this.validators.filter(function(v) {
-        return v.validator !== this.minValidator
-      }, this)
+      this.validators = this.validators.filter(v => v.validator !== this.minValidator)
     }
 
     if (value != null) {
       var msg = message || MongooseError.messages.Number.min
       msg = msg.replace(/{MIN}/, this.cast(value).valueOf())
 
-      this.minValidator = function(v) {
-        return v == null || v.gte(value)
-      }
+      this.minValidator = v => (v == null) || v.gte(value)
 
       this.validators.push({
         validator: this.minValidator,
@@ -75,18 +71,14 @@ class BigNumberSchema extends SchemaType {
 
   max(value, message) {
     if (this.maxValidator) {
-      this.validators = this.validators.filter(function(v) {
-        return v.validator !== this.maxValidator
-      }, this)
+      this.validators = this.validators.filter(v => v.validator !== this.maxValidator)
     }
 
     if (value != null) {
       var msg = message || MongooseError.messages.Number.max
       msg = msg.replace(/{MAX}/, this.cast(value).valueOf())
 
-      this.maxValidator = function(v) {
-        return v == null || v.lte(value)
-      }
+      this.maxValidator = v => (v == null) || v.lte(value)
 
       this.validators.push({
         validator: this.maxValidator,
