@@ -49,16 +49,21 @@ The only overwritten method for `BigNumberSchema` that will differ from a regula
 
 ## Options
 
-Supports `required`, `min`, `max` validators and formats according to `scale` and `rounding` schema option.
+Supports `required`, `min`, `max` validators.
+
+`scale` and `rounding` schema options will be applied when saving to MongoDB or serializing with `toJSON` or `toObject`.
 
 ### `scale {int}`
 
-Sets the scale (decimal precision). Used for formatting the value when saving to MongoDB or serializing with `toJSON` or `toObject`.
+Sets the scale (decimal precision).
+
+`scale` defaults to `0`.
 
 ### `rounding {int}`
 
 Sets the `BigNumber` rounding method. [See bignumber.js docs](http://mikemcl.github.io/bignumber.js/#constructor-properties) for more details.
 
+`rounding` defaults to `BigNumber.ROUND_HALF_UP`.
 
 ## Example
 
