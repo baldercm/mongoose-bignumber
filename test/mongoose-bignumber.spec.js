@@ -109,6 +109,19 @@ describe('BigNumberSchema', () => {
           expect(test).to.have.property('value').that.is.an.instanceof(BigNumber)
         })
     })
+
+    it('should be able to perform BigNumber calculations', () => {
+      const Test = mongoose.model('Test')
+
+      return Test.create({value: 5})
+        .then((test) => {
+          test.value = test.value.add(3)
+          return test.save()
+        })
+        .then((test) => {
+          expect(test.value.equals(new BigNumber(8))).to.be.true
+        })
+    })
   })
 
   describe('String representation', () => {
