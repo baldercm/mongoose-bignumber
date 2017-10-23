@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "bignumber.js": "^4.0.0",
+    "bluebird": "^3.5.1",
     "chai": "^4.0.2",
     "chai-as-promised": "^7.0.0",
     "coveralls": "^2.13.1",
