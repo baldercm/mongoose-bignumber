@@ -404,7 +404,7 @@ describe('BigNumberSchema', () => {
         })
     })
 
-    it('should work with query with $nin conditional', () => {
+    it('should work with query with $nin conditional (cast array)', () => {
       const Test  = mongoose.model('Test')
 
       return Test.create({value: 5})
