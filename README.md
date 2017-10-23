@@ -4,9 +4,10 @@
 baldercm/mongoose-bignumber
 ==============
 
-Mongoose type for storing arbitrary-precision decimal numbers (using bignumber.js).
+Mongoose type for storing arbitrary-precision decimal numbers (using [bignumber.js](https://github.com/MikeMcl/bignumber.js)).
 
-Will convert all values to String on storing and serialization to avoid precision loss.
+Use the power of `BigNumber` instances in your model and obtain seamlessly conversion to `String` values when saving to MongoDB and serializing as JSON.
+
 
 ## Installation
 
@@ -16,13 +17,12 @@ Install the module using npm:
 npm i mongoose-bignumber
 ```
 
-If you are not using mongoose and bignumber.js:
+`mongoose` and `bignumber.js` are declared as `peerDependencies`, so you have to install these dependencies yourself if you are not using them yet:
 
 ```bash
 npm i mongoose bignumber.js mongoose-bignumber
 ```
 
-`mongoose` and `bignumber.js` are declared as `peerDependencies`, so you have to install these dependencies yourself.
 
 ## Basic Usage
 
@@ -33,15 +33,19 @@ const mongoose        = require('mongoose')
 const BigNumber       = require('bignumber.js')
 const BigNumberSchema = require('mongoose-bignumber')
 
+// you may use BigNumberSchema or mongoose.Schema.Types.BigNumber
+// standard number validators work for Number, String and BigNumber values
 const exampleSchema = new mongoose.Schema({
-  val1:  { type: BigNumberSchema, required: true, min: '0.00' },
+  val1:  { type: BigNumberSchema, required: true, min: '0' },
   val2:  { type: BigNumberSchema, scale: 2, rounding: BigNumber.ROUND_HALF_UP },
-  val3:  { type: mongoose.Schema.Types.BigNumber, max: new BigNumber('9999.99') },
+  val2:  { type: BigNumberSchema, scale: 2, max: new BigNumber('99.99') },
+  val3:  { type: mongoose.Schema.Types.BigNumber },
 })
 
-mongoose.model('Example', exampleSchema)
+const Example = mongoose.model('Example', exampleSchema)
 ```
 
+The only overwritten method for `BigNumberSchema` that will differ from a regular `BigNumber` is `valueOf()`, that will behave like `toFixed()` using the specified `scale` and `rounding` options.
 
 ## Options
 
@@ -53,7 +57,7 @@ Sets the scale (decimal precision). Used for formatting the value when saving to
 
 ### `rounding {int}`
 
-Sets the BigNumber rounding method. [See bignumber.js docs](http://mikemcl.github.io/bignumber.js/#constructor-properties) for more details.
+Sets the `BigNumber` rounding method. [See bignumber.js docs](http://mikemcl.github.io/bignumber.js/#constructor-properties) for more details.
 
 
 ## Example
@@ -86,6 +90,7 @@ model.bignumber = model.bignumber.add('11.11')
 model.bignumber.add('11.11')
 // {_id: ..., bignumber: '34.57'}
 ```
+
 
 ## Contributing
 
