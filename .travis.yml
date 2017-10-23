@@ -1,0 +1,9 @@
+language: node_js
+
+node_js:
+  - v6
+  - v7
+  - v8
+
+after_success:
+  - npm run coveralls

@@ -1,0 +1,8 @@
+coverage/
+node_modules/
+
+# Sublime
+*.sublime-workspace
+
+# MacOS
+.DS_Store/
