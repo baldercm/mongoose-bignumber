@@ -10,8 +10,8 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "peerDependencies": {
-    "bignumber.js": "^4.0.0",
-    "mongoose": "^4.12.0"
+    "bignumber.js": ">=4.0.0",
+    "mongoose": ">=4.12.0"
   },
   "devDependencies": {
     "bignumber.js": "^4.0.0",
