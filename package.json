@@ -42,7 +42,7 @@
     "decimal"
   ],
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "contributors": []
 }
