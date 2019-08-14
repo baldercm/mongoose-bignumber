@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
-    "test": "istanbul cover _mocha",
+    "test": "nyc _mocha",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "peerDependencies": {
@@ -18,13 +18,13 @@
     "bluebird": "^3.5.1",
     "chai": "^4.0.2",
     "chai-as-promised": "^7.0.0",
-    "coveralls": "^2.13.1",
-    "eslint": "^4.0.0",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.4.2",
+    "coveralls": "^3.0.6",
+    "eslint": "^6.1.0",
+    "mocha": "^6.2.0",
     "mongoose": "^4.12.4",
-    "sinon": "^2.3.4",
-    "sinon-chai": "^2.11.0"
+    "nyc": "^14.1.1",
+    "sinon": "^7.4.1",
+    "sinon-chai": "^3.3.0"
   },
   "repository": {
     "type": "git",
