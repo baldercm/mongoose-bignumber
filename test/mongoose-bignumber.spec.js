@@ -14,6 +14,10 @@ describe('BigNumberSchema', () => {
     return mongoose.connect('mongodb://localhost:27017/test', {useMongoClient: true})
   })
 
+  after(() => {
+    return mongoose.disconnect()
+  })
+
   before(() => {
     mongoose.model('Test', {
       value:        { type: BigNumberSchema, required: true },
