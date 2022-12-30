@@ -20,7 +20,7 @@
     "chai-as-promised": "^7.0.0",
     "coveralls": "^3.0.6",
     "eslint": "^6.1.0",
-    "mocha": "^6.2.0",
+    "mocha": "^10.2.0",
     "mongoose": "^4.12.4",
     "nyc": "^14.1.1",
     "sinon": "^7.4.1",
