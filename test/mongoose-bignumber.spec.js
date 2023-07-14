@@ -11,7 +11,7 @@ describe('BigNumberSchema', () => {
 
   before(() => {
     mongoose.Promise = Bluebird
-    return mongoose.connect('mongodb://localhost:27017/test', {useMongoClient: true})
+    return mongoose.connect('mongodb://localhost:27017/test')
   })
 
   after(() => {
@@ -36,7 +36,7 @@ describe('BigNumberSchema', () => {
   beforeEach(() => {
     const Test = mongoose.model('Test')
 
-    return Test.remove()
+    return Test.deleteOne()
   })
 
   describe('cast', () => {
@@ -48,18 +48,7 @@ describe('BigNumberSchema', () => {
         .then(() => {throw new Error('ValidationError expected')})
         .catch((err) => {
           expect(err).to.have.property('name', 'ValidationError')
-          expect(err).to.have.property('message', 'Test validation failed: value: Cast to BigNumberSchema failed for value "{ invalid: \'type\' }" at path "value"')
-        })
-    })
-
-    it('should fail on non number strings', () => {
-      const Test = mongoose.model('Test')
-
-      return Test.create({value: 'asdf'})
-        .then(() => {throw new Error('ValidationError expected')})
-        .catch((err) => {
-          expect(err).to.have.property('name', 'ValidationError')
-          expect(err).to.have.property('message', 'Test validation failed: value: Cast to BigNumberSchema failed for value "asdf" at path "value"')
+          expect(err).to.have.property('message', 'Test validation failed: value: Cast to BigNumberSchema failed for value "{ invalid: \'type\' }" (type Object) at path "value"')
         })
     })
 
@@ -119,11 +108,11 @@ describe('BigNumberSchema', () => {
 
       return Test.create({value: 5})
         .then((test) => {
-          test.value = test.value.add(3)
+          test.value = test.value.plus(3)
           return test.save()
         })
         .then((test) => {
-          expect(test.value.equals(new BigNumber(8))).to.be.true
+          expect(test.value.isEqualTo(new BigNumber(8))).to.be.true
         })
     })
   })

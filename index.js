@@ -37,7 +37,7 @@ class BigNumberSchema extends SchemaType {
     if (value instanceof BigNumberType) {
       return value
     }
-    if (value instanceof BigNumber || typeof value === 'string' || typeof value === 'number') {
+    if (value._isBigNumber || typeof value === 'string' || typeof value === 'number') {
       try {
         return new BigNumberType(value, this.options)
       } catch (e) {
@@ -91,15 +91,14 @@ class BigNumberSchema extends SchemaType {
   }
 
   castForQuery($conditional, val) {
-    if (arguments.length === 2) {
+    if ($conditional != null) {
       let handler = this.$conditionalHandlers[$conditional]
       if (!handler) {
         throw new Error(`Can't use ${$conditional} with BigNumber.`)
       }
       val = handler.call(this, val)
-    } else {
-      val = $conditional
-      val = this._castForQuery(val)
+    }else{
+      val = this.cast(val)
     }
 
     return val ? val.valueOf() : val
@@ -112,11 +111,11 @@ function handleSingle(val) {
 
 function handleArray(val) {
   if (!Array.isArray(val)) {
-    return [this.castForQuery(val)]
+    return [this.castForQuery(null, val)]
   }
 
   return val.map((m) => {
-    return this.castForQuery(m)
+    return this.castForQuery(null, m)
   })
 }
 
