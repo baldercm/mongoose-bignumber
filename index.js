@@ -90,32 +90,32 @@ class BigNumberSchema extends SchemaType {
     return this
   }
 
-  castForQuery($conditional, val) {
+  castForQuery($conditional, val, context) {
     if ($conditional != null) {
       let handler = this.$conditionalHandlers[$conditional]
       if (!handler) {
         throw new Error(`Can't use ${$conditional} with BigNumber.`)
       }
-      val = handler.call(this, val)
+      val = handler.call(this, val, context)
     }else{
-      val = this.cast(val)
+      val = this.applySetters(val, context)
     }
 
     return val ? val.valueOf() : val
   }
 }
 
-function handleSingle(val) {
-  return this.cast(val)
+function handleSingle(val, context) {
+  return this.cast(val, context)
 }
 
-function handleArray(val) {
+function handleArray(val, context) {
   if (!Array.isArray(val)) {
-    return [this.castForQuery(null, val)]
+    return [this.castForQuery(null, val, context)]
   }
 
   return val.map((m) => {
-    return this.castForQuery(null, m)
+    return this.castForQuery(null, m, context)
   })
 }
 
